@@ -16,3 +16,14 @@ const renderPic = () => {
       document.querySelector('.role').onchange=renderSelectedPic
     })
 }
+
+const renderSelectedPic = (event) => {
+  let roleImg = document.querySelector('.role-preview')
+  document.querySelectorAll('option').forEach(role => {
+    if (role.selected) {
+      // display image
+      roleImg.src = role.value
+      roleImg.textContent = role.textContent
+    }
+  })
+}
