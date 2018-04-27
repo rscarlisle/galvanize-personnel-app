@@ -27,3 +27,30 @@ const renderSelectedPic = (event) => {
     }
   })
 }
+
+document.querySelector('.save').addEventListener('click', (event) => {
+  event.preventDefault()
+  let firstName = document.querySelector("input[name='first-name']")
+  let lastName = document.querySelector("input[name='last-name']")
+  let role = document.querySelector('.role-preview')
+
+  axios.post(`${baseURL}/users`, {
+    firstName: firstName.value,
+    lastName: lastName.value,
+    role: role.textContent
+  })
+    .then(result => {
+      let saveStatus = document.querySelector('.save-status')
+      // display message on success response
+      saveStatus.textContent = result.data.message
+      saveStatus.style.display = 'block'
+      saveStatus.style.backgroundColor = 'hsl(110, 70%, 80%)'
+    })
+    .catch(error => {
+      let saveStatus = document.querySelector('.save-status')
+      // display message on error response
+      saveStatus.textContent = error.response.data.message
+      saveStatus.style.display = 'block'
+      saveStatus.style.backgroundColor = 'hsl(0, 70%, 80%)'
+    })
+})
